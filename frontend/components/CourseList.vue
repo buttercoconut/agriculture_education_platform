@@ -3,9 +3,7 @@
     <h2>Course List</h2>
     <ul>
       <li v-for="course in courses" :key="course.id">
-        <router-link :to="{ name: 'Course', params: { id: course.id } }">
-          {{ course.title }}
-        </router-link>
+        {{ course.title }} - {{ course.description }}
       </li>
     </ul>
   </div>
@@ -18,7 +16,7 @@ import axios from 'axios'
 const courses = ref([])
 
 onMounted(async () => {
-  const res = await axios.get('http://localhost:8000/courses/')
+  const res = await axios.get('http://localhost:8000/api/course/')
   courses.value = res.data
 })
 </script>

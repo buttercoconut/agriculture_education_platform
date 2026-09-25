@@ -1,21 +1,17 @@
 from typing import List
-
-from models.course import Course, CourseCreate
+from models.course import Course
 
 # Dummy in-memory store
-fake_courses_db: List[Course] = []
+COURSES: List[Course] = []
 
 class CourseService:
-    def get_all_courses(self) -> List[Course]:
-        return fake_courses_db
+    @staticmethod
+    def list_courses() -> List[Course]:
+        return COURSES
 
-    def create_course(self, course_in: CourseCreate) -> Course:
-        course = Course(id=len(fake_courses_db)+1, **course_in.dict())
-        fake_courses_db.append(course)
+    @staticmethod
+    def create_course(course_in) -> Course:
+        new_id = len(COURSES) + 1
+        course = Course(id=new_id, title=course_in.title, description=course_in.description, tags=course_in.tags, lessons=[])
+        COURSES.append(course)
         return course
-
-    def get_course(self, course_id: int) -> Course:
-        for c in fake_courses_db:
-            if c.id == course_id:
-                return c
-        return None

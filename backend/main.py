@@ -1,9 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-from api.user import router as user_router
-from api.course import router as course_router
-from api.community import router as community_router
+from api import user, course, qna
 
 app = FastAPI(title="Agriculture Education Platform API")
 
@@ -15,10 +12,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(user_router, prefix="/users", tags=["users"])
-app.include_router(course_router, prefix="/courses", tags=["courses"])
-app.include_router(community_router, prefix="/community", tags=["community"])
+app.include_router(user.router, prefix="/api/user", tags=["user"])
+app.include_router(course.router, prefix="/api/course", tags=["course"])
+app.include_router(qna.router, prefix="/api/qna", tags=["qna"])
 
-@app.get("/")
-async def root():
-    return {"message": "Welcome to Agriculture Education Platform API"}
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

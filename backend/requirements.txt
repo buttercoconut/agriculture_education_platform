@@ -1,0 +1,7 @@
+# requirements.txt for backend
+fastapi
+uvicorn
+pydantic
+passlib[bcrypt]
+python-jose
+jwt

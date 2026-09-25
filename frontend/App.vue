@@ -1,7 +1,11 @@
 <template>
-  <router-view />
+  <div id="app">
+    <CourseList />
+    <QnAChat />
+  </div>
 </template>
 
 <script setup>
-// Root component
+import CourseList from './components/CourseList.vue'
+import QnAChat from './components/QnAChat.vue'
 </script>

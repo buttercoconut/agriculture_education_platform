@@ -1,24 +1,16 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
 
-class Lesson(BaseModel):
-    id: int
-    title: str
-    content: str
-    video_url: Optional[str] = None
-
-class Module(BaseModel):
-    id: int
-    title: str
-    lessons: List[Lesson]
-
-class Course(BaseModel):
-    id: int
+class CourseBase(BaseModel):
     title: str
     description: str
-    modules: List[Module]
+    tags: List[str] = []
 
-class CourseCreate(BaseModel):
-    title: str
-    description: str
-    modules: List[Module]
+class CourseCreate(CourseBase):
+    pass
+
+class Course(CourseBase):
+    id: int
+    lessons: List[Lesson] = []
+    class Config:
+        orm_mode = True
